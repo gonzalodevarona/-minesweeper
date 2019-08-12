@@ -351,7 +351,13 @@ public class Buscaminas {
 		return minas;
 	}
 	
-	
+	/**
+	 * Metodo que permite contar la cantidad de minas que tiene alrededor una casilla la cual limiteDeLasFilas>i>0 y limiteDeLasColumnas>j>0
+	 * @param i - La fila de la matriz
+	 * @param j - la columna de la matriz
+	 * @return int - La cantidad de minas que tiene alrededor la casilla [i][j]
+	 */
+
 	public int minasFueraDeMarco(int i, int j) {
 		int minas = 0;
 		
