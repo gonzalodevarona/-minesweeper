@@ -41,7 +41,9 @@ class TestBuscaminas {
 	public void setupStage2() {
 		buscaminas= new Buscaminas(Buscaminas.EXPERTO);	
 	}
-		
+	
+	//FAKE LEVEL
+	
 	
 	
 	
@@ -54,6 +56,21 @@ class TestBuscaminas {
 	void testCreateBuscaminas() {
 		setupStage();
 		assertNotNull(buscaminas.darCasillas());
+	}
+	
+	
+	@Test
+	void testCountBlankSpaces() {
+		setupStage();
+		Casilla[][] cas = buscaminas.darCasillas(); 
+		
+		int totalCas = cas.length*cas[0].length;
+		totalCas = totalCas-Buscaminas.CANTIDAD_MINAS_PRINCIPANTE;
+		
+		int realValue = Buscaminas.FILAS_PRINCIPIANTE * Buscaminas.COLUMNAS_PRINCIPIANTE;
+		realValue = realValue-Buscaminas.CANTIDAD_MINAS_PRINCIPANTE;
+		
+		assertTrue(realValue == totalCas);
 	}
 	
 	@Test
@@ -155,6 +172,20 @@ class TestBuscaminas {
 	}
 	
 	@Test
+	void testCountBlankSpaces1() {
+		setupStage1();
+		Casilla[][] cas = buscaminas.darCasillas(); 
+		
+		int totalCas = cas.length*cas[0].length;
+		totalCas = totalCas-Buscaminas.CANTIDAD_MINAS_INTERMEDIO;
+		
+		int realValue = Buscaminas.FILAS_INTERMEDIO * Buscaminas.COLUMNAS_INTERMEDIO;
+		realValue = realValue-Buscaminas.CANTIDAD_MINAS_INTERMEDIO;
+		
+		assertTrue(realValue == totalCas);
+	}
+	
+	@Test
 	void testFakeExceptionIntermedium() {
 		setupStage1();
 		try {
@@ -248,6 +279,20 @@ class TestBuscaminas {
 	void testCreateBuscaminas2() {
 		setupStage2();
 		assertNotNull(buscaminas.darCasillas());
+	}
+	
+	@Test
+	void testCountBlankSpaces2() {
+		setupStage2();
+		Casilla[][] cas = buscaminas.darCasillas(); 
+		
+		int totalCas = cas.length*cas[0].length;
+		totalCas = totalCas-Buscaminas.CANTIDAD_MINAS_EXPERTO;
+		
+		int realValue = Buscaminas.FILAS_EXPERTO * Buscaminas.COLUMNAS_EXPERTO;
+		realValue = realValue-Buscaminas.CANTIDAD_MINAS_EXPERTO;
+		
+		assertTrue(realValue == totalCas);
 	}
 	
 	@Test
