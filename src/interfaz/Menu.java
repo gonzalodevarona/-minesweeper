@@ -11,10 +11,11 @@
 package interfaz;
 
 import java.util.InputMismatchException;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import excepciones.ExceptionFakeDimensions;
+import excepciones.*;
 import modelo.Buscaminas;
 
 public class Menu {
@@ -67,48 +68,52 @@ public class Menu {
 
 			mostrarTablero(); 
 			int valorUsuario = menuJuego();
-
-			switch (valorUsuario) {
-			case 1:
-				//Abrir una casilla
-				if(!abrirCasilla()){
-					System.out.println("La casilla ya estaba abierta o es incorrecta!");
-				}
-				
-				if (juego.darPerdio()) {
-					System.out.println("X_X Perdiste al abrir una Mina :( ");
-					mostrarTablero();
-					salir = true;
-				}
-
-				if(juego.gano()){
-					System.out.println("Felicitaciones Ganaste!!!!!!!");
-				}
-				break;
-
-			case 2:
-				//Dar Pista
-				System.out.println(juego.darPista());
-				if(juego.gano()){
-					System.out.println("Felicitaciones Ganaste!!!!!!!");
-				}
-				break;
-
-			case 3:
-				//Ver Solucion
-				mostrarTableroResuelto();
-				salir = true;
-				break;
-
-			case 4:
-				//Salir
-				salir = true;
-				break;
 			
-			default:
-				System.out.println("Por favor digite una opci�n valida");
-				break;
-			}
+				switch (valorUsuario) {
+				case 1:
+					//Abrir una casilla
+					if(!abrirCasilla()){
+						System.out.println("La casilla ya estaba abierta o es incorrecta!");
+					}
+					
+					if (juego.darPerdio()) {
+						System.out.println("X_X Perdiste al abrir una Mina :( ");
+						mostrarTablero();
+						salir = true;
+					}
+	
+					if(juego.gano()){
+						System.out.println("Felicitaciones Ganaste!!!!!!!");
+					}
+					break;
+	
+				case 2:
+					//Dar Pista
+					System.out.println(juego.darPista());
+					if(juego.gano()){
+						System.out.println("Felicitaciones Ganaste!!!!!!!");
+					}
+					break;
+	
+				case 3:
+					//Ver Solucion
+					mostrarTableroResuelto();
+					salir = true;
+					break;
+	
+				case 4:
+					//Salir
+					salir = true;
+					break;
+				default:
+					ExceptionInvalidChoice e = new ExceptionInvalidChoice(valorUsuario);
+					System.out.println(" ");
+					System.out.println(e.getMessage());
+					System.out.println(" ");
+	
+				}
+			
+			
 
 
 		}
@@ -231,11 +236,10 @@ public class Menu {
 				
 				seleccion = lector.nextInt();
 				lector.nextLine();
-
+				
+				
 				if(seleccion<1 || seleccion>3){
-					System.out.println();
-					System.out.println("Por favor ingrese un valor correcto");
-					System.out.println();
+					throw new ExceptionInvalidLevel();
 				}
 				
 			}
@@ -245,6 +249,12 @@ public class Menu {
 				System.out.println("ERROR: Invalid answer");
 				System.out.println(" ");
 				lector.nextLine();
+				
+			} catch (ExceptionInvalidLevel e1) {
+				
+				System.out.println(" ");
+				System.out.println(e1.getMessage());
+				System.out.println(" ");
 			}
 			
 		}

@@ -409,11 +409,16 @@ public class Buscaminas {
 		int x = 0;
 		int y = 0;
 		
-		for (int i = 1; i <= cantidadMinas; i++) {
+		for (int i = 1; i <= cantidadMinas; ++i) {
 			x = (int)(Math.random() * casillas.length) ;
 			y =(int) (Math.random() * casillas[0].length);
+			if(casillas[x][y] != null && casillas[x][y].esMina()) {
+				i = i-1;
+			}else {
+				casillas[x][y] = new Casilla(Casilla.MINA);
+				
+			}
 			
-			casillas[x][y] = new Casilla(Casilla.MINA);
 			
 		}
 		

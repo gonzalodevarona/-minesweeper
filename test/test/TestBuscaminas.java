@@ -57,11 +57,11 @@ class TestBuscaminas {
 	}
 	
 	@Test
-	void testFakeException() {
+	void testFakeExceptionEasy() {
 		setupStage();
 		try {
-			buscaminas.abrirCasilla(Buscaminas.FILAS_INTERMEDIO+1, -4);
-			fail();
+			if(buscaminas.abrirCasilla(Buscaminas.FILAS_INTERMEDIO+1, Buscaminas.COLUMNAS_INTERMEDIO+1)) 
+			{fail();}
 		} catch (ExceptionFakeDimensions e) {
 			
 		} catch (ArrayIndexOutOfBoundsException e2) {
@@ -70,6 +70,60 @@ class TestBuscaminas {
 		
 		
 	}
+	
+	@Test
+	void testFakeExceptionEasy1() {
+		setupStage();
+		try {
+			if(buscaminas.abrirCasilla(-20, -324342)) 
+			{fail();}
+		} catch (ExceptionFakeDimensions e) {
+			
+		} catch (ArrayIndexOutOfBoundsException e2) {
+			
+		}
+		
+		
+	}
+	
+	@Test
+	void testFakeExceptionEasy2() {
+		setupStage();
+		try {
+			if(buscaminas.abrirCasilla(20, -324342)) 
+			{fail();}
+			
+			if(buscaminas.abrirCasilla(-20, 324342)) 
+			{fail();}
+			
+		} catch (ExceptionFakeDimensions e) {
+			
+		} catch (ArrayIndexOutOfBoundsException e2) {
+			
+		}
+		
+		
+	}
+	
+	@Test
+	void testCountMines() {
+		setupStage();
+		int mines = 0;
+		Casilla[][] position=	buscaminas.darCasillas();
+		
+		for (int i = 0; i < position.length; i++) {
+			for (int j = 0; j < position[0].length; j++) {
+				if(position[i][j].esMina()) {
+					++mines;
+				}
+	
+			}
+		}
+		
+		assertTrue(mines == Buscaminas.CANTIDAD_MINAS_PRINCIPANTE);
+	}
+	
+	
 	
 	@Test
 	void testSolve() {
@@ -101,11 +155,47 @@ class TestBuscaminas {
 	}
 	
 	@Test
-	void testFakeException1() {
+	void testFakeExceptionIntermedium() {
 		setupStage1();
 		try {
-			buscaminas.abrirCasilla(-1, 86);
-			fail();
+			if(buscaminas.abrirCasilla(20, 300)) {fail();}
+
+			
+		} catch (ExceptionFakeDimensions e) {
+			
+		} catch (ArrayIndexOutOfBoundsException e2) {
+			
+		}
+		
+		
+	}
+	
+	@Test
+	void testFakeExceptionIntermedium1() {
+		setupStage1();
+		try {
+			if(buscaminas.abrirCasilla(-20, -300)) {fail();}
+
+			
+		} catch (ExceptionFakeDimensions e) {
+			
+		} catch (ArrayIndexOutOfBoundsException e2) {
+			
+		}
+		
+		
+	}
+	
+	@Test
+	void testFakeExceptionIntermedium2() {
+		setupStage1();
+		try {
+			if(buscaminas.abrirCasilla(20, -324342)) 
+			{fail();}
+			
+			if(buscaminas.abrirCasilla(-20, 324342)) 
+			{fail();}
+			
 		} catch (ExceptionFakeDimensions e) {
 			
 		} catch (ArrayIndexOutOfBoundsException e2) {
@@ -126,14 +216,9 @@ class TestBuscaminas {
 				if(position[i][j].esMina()) {
 					++mines;
 				}
-			
-				
+	
 			}
 		}
-		System.out.println(mines);
-		System.out.println(Buscaminas.CANTIDAD_MINAS_INTERMEDIO);
-		
-		System.out.println("------");
 		
 		assertTrue(mines == Buscaminas.CANTIDAD_MINAS_INTERMEDIO);
 	}
@@ -166,11 +251,47 @@ class TestBuscaminas {
 	}
 	
 	@Test
-	void testFakeException2() {
+	void testFakeExceptionExpert() {
 		setupStage2();
 		try {
-			buscaminas.abrirCasilla(89, -349);
-			fail();
+			if(buscaminas.abrirCasilla(20, 300)) {fail();}
+
+			
+		} catch (ExceptionFakeDimensions e) {
+			
+		} catch (ArrayIndexOutOfBoundsException e2) {
+			
+		}
+		
+		
+	}
+	
+	@Test
+	void testFakeExceptionExpert1() {
+		setupStage2();
+		try {
+			if(buscaminas.abrirCasilla(-20, -300)) {fail();}
+
+			
+		} catch (ExceptionFakeDimensions e) {
+			
+		} catch (ArrayIndexOutOfBoundsException e2) {
+			
+		}
+		
+		
+	}
+	
+	@Test
+	void testFakeExceptionExpert2() {
+		setupStage2();
+		try {
+			if(buscaminas.abrirCasilla(20, -324342)) 
+			{fail();}
+			
+			if(buscaminas.abrirCasilla(-20, 324342)) 
+			{fail();}
+			
 		} catch (ExceptionFakeDimensions e) {
 			
 		} catch (ArrayIndexOutOfBoundsException e2) {
@@ -192,15 +313,13 @@ class TestBuscaminas {
 				if(position[i][j].esMina()) {
 					++mines;
 				}
-			
-				
+	
 			}
 		}
-		System.out.println(mines);
-		System.out.println(Buscaminas.CANTIDAD_MINAS_EXPERTO);
 		
 		assertTrue(mines == Buscaminas.CANTIDAD_MINAS_EXPERTO);
 	}
+	
 	
 	@Test
 	void testSolve2() {
