@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"excepciones","c":"ExceptionFakeDimensions","l":"ExceptionFakeDimensions()","url":"%3Cinit%3E()"},{"p":"excepciones","c":"ExceptionInvalidChoice","l":"ExceptionInvalidChoice(int)","url":"%3Cinit%3E(int)"},{"p":"excepciones","c":"ExceptionInvalidLevel","l":"ExceptionInvalidLevel()","url":"%3Cinit%3E()"}]
