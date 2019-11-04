@@ -10,7 +10,6 @@
 
 package modelo;
 
-import excepciones.ExceptionFakeDimensions;
 
 public class Buscaminas {
 
@@ -499,35 +498,26 @@ public class Buscaminas {
 	 * @param j - la columna donde esta la casilla
 	 * @return boolean - true si fue posible destaparla, false en caso contrario
 	 */
-	public boolean abrirCasilla(int i, int j) throws ExceptionFakeDimensions{
+	public boolean abrirCasilla(int i, int j) {
 		boolean sePudo = false;
-		try {
-			if (i <=casillas.length && j<=casillas[0].length) {
+		
+			
+		if (casillas[i][j].darSeleccionada() == false) {
+			
+			if (casillas[i][j].esMina()) {
 				
-				if (casillas[i][j].darSeleccionada() == false) {
-					
-					if (casillas[i][j].esMina()) {
-						
-						casillas[i][j].destapar();
-						perdio = true;
-						sePudo = true;
-						
-					} else {
-						casillas[i][j].destapar();
-						sePudo = true;
-					}
-					
-					
-				} 
+				casillas[i][j].destapar();
+				perdio = true;
+				sePudo = true;
+				
 			} else {
-				throw new ExceptionFakeDimensions();
+				casillas[i][j].destapar();
+				sePudo = true;
 			}
 			
-		} catch (ArrayIndexOutOfBoundsException  e) {
 			
-		}
-		
-		
+		} 
+		 
 	
 		return sePudo;
 	}
@@ -540,6 +530,32 @@ public class Buscaminas {
 	 */
 	public boolean gano() {
 		boolean gano = false;
+		boolean stop = true;
+		
+		if (darPerdio() == false) {
+			for (int i = 0; i < casillas.length && stop ; i++) {
+				for (int j = 0; j < casillas[0].length && stop; j++) {
+					
+					
+					if(casillas[i][j].darSeleccionada()) {
+						 if (casillas[i][j].darValor() != -1) {
+							 gano = true;
+						} else {
+							stop = false;
+							gano = false;
+							
+						}
+					} else {
+						stop = false;
+						gano = false;
+						
+					}
+					
+					
+				}
+
+			}
+		} 
 		
 		
 		return gano;
@@ -551,14 +567,14 @@ public class Buscaminas {
 	 * @return String, Mensaje de la Casilla que marco abierta, En caso de no haber casillas posibles para dar una pista, retorna el mensaje no hay pistas para dar
 	 */
 	public String darPista() {
-		String pista = "No hay pista para dar";
+		String pista = "";
 		boolean stop = false; 
 		
 		for (int i = 0; i < casillas.length && !stop ; i++) {
 			for (int j = 0; j < casillas[0].length && !stop; j++) {
 				if (casillas[i][j].darSeleccionada() == false && casillas[i][j].esMina() == false && casillas[i][j].darValor() > 0) {
 					
-					pista = "La casilla destapada tiene coordenadas: ("+ (i+1) +","+ (j+1) +") \n";
+					pista = i+","+j;
 					casillas[i][j].destapar();
 					stop = true;
 					
@@ -571,10 +587,41 @@ public class Buscaminas {
 	
 	/***
 	 * Metodo dar del atributo perdio
+	 * @return 
 	 * @return boolean el atributo
 	 */
-	public boolean darPerdio(){
+	public  boolean darPerdio(){
 		return perdio;
+	}
+	
+	
+	public String darValorCasilla(int x, int y) {
+		String value = "*";
+		if (casillas[x][y].esMina() == false) {
+			value = ""+casillas[x][y].darValor();
+		} else {
+			perdio = true;
+		}
+		
+		return value;
+	}
+
+
+
+
+
+
+	public boolean possibleAt(int x, int y) {
+		boolean so = false;
+		
+		if (casillas[x][y].getPossible() == false) {
+			casillas[x][y].setPossible(true);
+			so= true;
+		}
+		
+		
+		return so;
+		
 	}
 
 }

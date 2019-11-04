@@ -11,7 +11,8 @@
 package modelo;
 
 
-public class Casilla {
+
+public class Casilla  {
 	
 	
 	// -----------------------------------------------------------------
@@ -50,6 +51,8 @@ public class Casilla {
 	 * Atributo que indica la cantidad de minas que tiene alrededor una casilla.
 	 */
 	private int valor;
+	
+	private boolean possible;
 
 	
 	
@@ -134,6 +137,17 @@ public class Casilla {
 	public int darValor(){
 		return valor;
 	}
+
+
+	public boolean getPossible() {
+		return possible;
+	}
+
+	public void setPossible(boolean possible) {
+		this.possible = possible;
+	}
+	
+	
 	
 	
 }
