@@ -109,7 +109,7 @@ public class Menu extends Application{
 	public void makeGrid(Stage primaryS, int difficult) {
 		controlGame.setLevel(difficult);
 		Scene second = controlGame.makeGrid(primaryS);
-		primaryS.setResizable(true);
+		
 		primaryS.setScene(second);
 		
 	}

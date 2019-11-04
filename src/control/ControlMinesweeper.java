@@ -1,13 +1,18 @@
 package control;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import gui.Menu;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -26,6 +31,7 @@ public class ControlMinesweeper implements Initializable{
 	
 	private int level;
 	private Buscaminas game;
+	private Menu menu;
 	
 	
 	
@@ -68,13 +74,16 @@ public Scene makeGrid(Stage primaryS) {
 	    Label status = new Label("En juego");
 	    vbox.getChildren().addAll(hint, solve, exit, status);
 	    
+	
 			
 		Casilla[][] c = game.darCasillas();
 		for (int i = 0; i < c.length; i++) {
 			for (int j = 0; j < c[0].length; j++) {	
 				Button b = new Button();
 				
-			    b.setPrefSize(8, 8);
+				
+				b.setMaxSize(30, 30);
+				b.setMinSize(30, 30);
 			    
 			    gridpane.add(b, j, i);
 			    
@@ -114,7 +123,14 @@ public Scene makeGrid(Stage primaryS) {
 		});
 		
 		exit.setOnAction(e-> {
-			primaryS.close();
+
+			 menu = new Menu();
+			try {
+				menu.start(primaryS);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}); 
 		
 		solve.setOnAction(e-> {
@@ -126,7 +142,8 @@ public Scene makeGrid(Stage primaryS) {
 				for (int i = 0; i < Buscaminas.FILAS_PRINCIPIANTE; i++) {
 					for (int j = 0; j < Buscaminas.COLUMNAS_PRINCIPIANTE; j++) {			
 						Button b = new Button();
-					    
+						b.setMaxSize(30, 30);
+						b.setMinSize(30, 30);
 					    
 					    gridpane.add(b, j, i);
 					    int x = GridPane.getRowIndex(b);
@@ -142,6 +159,8 @@ public Scene makeGrid(Stage primaryS) {
 					for (int j = 0; j < Buscaminas.COLUMNAS_INTERMEDIO; j++) {			
 						Button b = new Button();
 					    b.setPrefSize(8, 8);
+					    b.setMaxSize(30, 30);
+						b.setMinSize(30, 30);
 					    
 					    gridpane.add(b, j, i);
 					    int x = GridPane.getRowIndex(b);
@@ -157,6 +176,8 @@ public Scene makeGrid(Stage primaryS) {
 					for (int j = 0; j < Buscaminas.COLUMNAS_EXPERTO; j++) {			
 						Button b = new Button();
 					    b.setPrefSize(8, 8);
+					    b.setMaxSize(30, 30);
+						b.setMinSize(30, 30);
 					    
 					    gridpane.add(b, j, i);
 					    int x = GridPane.getRowIndex(b);
@@ -174,7 +195,7 @@ public Scene makeGrid(Stage primaryS) {
 			hint.setDisable(true);
 	    	solve.setDisable(true);
 	    	gridpane.setDisable(true);
-	    	status.setText("LOSER PERDISTE");
+	    	status.setText("LOSER \n PERDISTE");
 		});
 		
 			
@@ -216,6 +237,7 @@ public Scene makeGrid(Stage primaryS) {
 		    		
 		    		
 		    		b.setText(symbol);
+		    		b.setDisable(true);
 		    	}
 		    	
 		    	
@@ -224,14 +246,14 @@ public Scene makeGrid(Stage primaryS) {
 			    	hint.setDisable(true);
 			    	solve.setDisable(true);
 			    	gridpane.setDisable(true);
-			    	status.setText("LOSER PERDISTE");
+			    	status.setText("LOSER \n PERDISTE");
 				}
 			    
 			    if (game.gano()) {
 			    	hint.setDisable(true);
 			    	solve.setDisable(true);
 			    	gridpane.setDisable(true);
-			    	status.setText("VICTORIA CAMPAL");
+			    	status.setText("VICTORIA \n CAMPAL");
 			    	status.setTextFill(Color.web("#ff2800"));
 			    	status.setFont(Font.font("Courier", FontWeight.BOLD, 14));
 			    	
@@ -243,6 +265,10 @@ public Scene makeGrid(Stage primaryS) {
 					b.setText("M");
 					b.setFont(Font.font("Courier", FontWeight.BOLD, 14));
 					
+					
+				} else {
+					game.impossibleAt(x,y);
+					b.setText("");
 				}
 				
 			}

@@ -624,4 +624,14 @@ public class Buscaminas {
 		
 	}
 
+
+
+
+
+
+	public void impossibleAt(int x, int y) {
+		casillas[x][y].setPossible(false);
+		
+	}
+
 }
