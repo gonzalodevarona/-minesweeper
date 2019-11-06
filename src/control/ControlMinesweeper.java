@@ -1,8 +1,7 @@
 package control;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import gui.Menu;
@@ -11,8 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -32,6 +29,8 @@ public class ControlMinesweeper implements Initializable{
 	private int level;
 	private Buscaminas game;
 	private Menu menu;
+	
+	private Button[][] buttons;
 	
 	
 	
@@ -54,7 +53,7 @@ public class ControlMinesweeper implements Initializable{
 
 	}
 	
-public Scene makeGrid(Stage primaryS) {
+	public Scene makeGrid(Stage primaryS) {
 		
 		HBox hbox = new HBox(12);
 		
@@ -74,23 +73,18 @@ public Scene makeGrid(Stage primaryS) {
 	    Label status = new Label("En juego");
 	    vbox.getChildren().addAll(hint, solve, exit, status);
 	    
-	
-			
 		Casilla[][] c = game.darCasillas();
+	    buttons = new Button[c.length][c[0].length];
+		
 		for (int i = 0; i < c.length; i++) {
 			for (int j = 0; j < c[0].length; j++) {	
 				Button b = new Button();
-				
+				buttons[i][j] = b;
 				
 				b.setMaxSize(30, 30);
 				b.setMinSize(30, 30);
 			    
 			    gridpane.add(b, j, i);
-			    
-//					    b.setOnAction(e-> { abrirCasilla(b, hint, solve, gridpane, status); 
-//					    
-//					    
-//					    });
 			    
 			    
 			    b.setOnMousePressed((event) -> {
@@ -102,21 +96,24 @@ public Scene makeGrid(Stage primaryS) {
 		}
 				
 		
-		hint.setOnAction(e-> { 
+		hint.setOnMousePressed((event) -> {
+			
 			String pos = game.darPista();
 			
+			System.out.println(pos);
 			
 			if (!(pos.equalsIgnoreCase(""))) {
 				
+				System.out.println("entro al if");
 				String[] coordenates = pos.split(",");
-				System.out.println(coordenates[0]);
-				
+				System.out.println(Arrays.deepToString(coordenates));
 
 				int r = Integer.parseInt( coordenates[0]);
+				int k = Integer.parseInt( coordenates[1]);
 				
-				Button b = (Button) getNodeFromGridPane(gridpane,  1, r);
+				Button b = (Button) getNodeFromGridPane(gridpane,  k, r);
 				
-				//abrirCasilla(event, b, hint, solve, gridpane, status);
+				abrirCasilla(event, b, hint, solve, gridpane, status);
 				
 			}
 		
@@ -275,6 +272,9 @@ public Scene makeGrid(Stage primaryS) {
 			
 			return symbol;
 		}
+		
+		
+
 
 	
 } //end of class

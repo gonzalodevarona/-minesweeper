@@ -96,7 +96,7 @@ public class Menu extends Application{
 		Scene scene = new Scene(vbox,300,200);
 		
 		scene.getStylesheets().add(getClass().getResource("style4Menu.css").toExternalForm());
-		primaryStage.setResizable(false);
+//		primaryStage.setResizable(false);
 		primaryStage.setTitle("MINESWEEPER");
 		primaryStage.setScene(scene);
 		primaryStage.show();
