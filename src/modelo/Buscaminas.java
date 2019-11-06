@@ -537,19 +537,15 @@ public class Buscaminas {
 				for (int j = 0; j < casillas[0].length && stop; j++) {
 					
 					
-					if(casillas[i][j].darSeleccionada()) {
-						 if (casillas[i][j].darValor() != -1) {
+					if(casillas[i][j].darValor() != -1) {
+						 if (casillas[i][j].darSeleccionada()) {
 							 gano = true;
 						} else {
 							stop = false;
 							gano = false;
 							
 						}
-					} else {
-						stop = false;
-						gano = false;
-						
-					}
+					} 
 					
 					
 				}
@@ -631,6 +627,13 @@ public class Buscaminas {
 
 	public void impossibleAt(int x, int y) {
 		casillas[x][y].setPossible(false);
+		
+	}
+
+
+
+	public void tapar(int x, int y) {
+		casillas[x][y].tapar();
 		
 	}
 

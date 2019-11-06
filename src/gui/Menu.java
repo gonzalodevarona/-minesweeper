@@ -57,15 +57,15 @@ public class Menu extends Application{
 		
 		
 		
-		Button b = new Button("Fácil");
-		Button b1 = new Button("Intermedio");
-		Button b2 = new Button("Difícil");
+		Button easy = new Button("Fácil");
+		Button medium = new Button("Intermedio");
+		Button hard = new Button("Difícil");
 		HBox hbox = new HBox(2);
 		
 		
-		hbox.getChildren().add(b);
-		hbox.getChildren().add(b1);
-		hbox.getChildren().add(b2);
+		hbox.getChildren().add(easy);
+		hbox.getChildren().add(medium);
+		hbox.getChildren().add(hard);
 		hbox.setAlignment(Pos.CENTER);
 		
 		vbox.getChildren().add(hbox);
@@ -76,17 +76,17 @@ public class Menu extends Application{
 		askLevel.setFont(new Font("Courier", 12));
 		vbox.getChildren().add(askLevel);
 		
-		b.setOnAction(e->{
+		easy.setOnAction(e->{
 			
 			makeGrid(primaryStage, Buscaminas.PRINCIPIANTE);
 		});
 		
-		b1.setOnAction(e->{
+		medium.setOnAction(e->{
 			
 			makeGrid(primaryStage, Buscaminas.INTERMEDIO);
 		});
 		
-		b2.setOnAction(e->{
+		hard.setOnAction(e->{
 			
 			makeGrid(primaryStage, Buscaminas.EXPERTO);
 		
@@ -96,7 +96,7 @@ public class Menu extends Application{
 		Scene scene = new Scene(vbox,300,200);
 		
 		scene.getStylesheets().add(getClass().getResource("style4Menu.css").toExternalForm());
-//		primaryStage.setResizable(false);
+		primaryStage.setResizable(false);
 		primaryStage.setTitle("MINESWEEPER");
 		primaryStage.setScene(scene);
 		primaryStage.show();

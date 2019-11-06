@@ -113,7 +113,7 @@ public class ControlMinesweeper implements Initializable{
 				
 				Button b = (Button) getNodeFromGridPane(gridpane,  k, r);
 				
-				abrirCasilla(event, b, hint, solve, gridpane, status);
+				abrirCasillaHint(event, b, hint, solve, gridpane, status);
 				
 			}
 		
@@ -266,6 +266,52 @@ public class ControlMinesweeper implements Initializable{
 				} else {
 					game.impossibleAt(x,y);
 					b.setText("");
+				}
+				
+			}
+			
+			return symbol;
+		}
+		
+		
+		public String abrirCasillaHint(MouseEvent event, Button b, Button hint, Button solve, GridPane gridpane, Label status ) {
+
+			String symbol = "";
+			
+			int x = GridPane.getRowIndex(b);
+	    	int y = GridPane.getColumnIndex(b);
+		    
+		    
+		    if(event.getButton()==MouseButton.PRIMARY){
+		    	
+		    	game.tapar(x, y);
+		    	
+		    	
+		    	if(game.abrirCasilla(x, y)) {
+		    		symbol = game.darValorCasilla(x,y);
+		    		System.out.println("h"+symbol);
+		    		
+		    		buttons[x][y].setText(symbol);
+		    		buttons[x][y].setDisable(true);
+		    	}
+		    	
+		    	
+		    	
+		    	if (game.darPerdio()) {
+			    	hint.setDisable(true);
+			    	solve.setDisable(true);
+			    	gridpane.setDisable(true);
+			    	status.setText("LOSER \n PERDISTE");
+				}
+			    
+			    if (game.gano()) {
+			    	hint.setDisable(true);
+			    	solve.setDisable(true);
+			    	gridpane.setDisable(true);
+			    	status.setText("VICTORIA \n CAMPAL");
+			    	status.setTextFill(Color.web("#ff2800"));
+			    	status.setFont(Font.font("Courier", FontWeight.BOLD, 14));
+			    	
 				}
 				
 			}

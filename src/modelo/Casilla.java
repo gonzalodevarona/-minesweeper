@@ -122,6 +122,10 @@ public class Casilla  {
 		seleccionada = true;
 	}
 	
+	public void tapar(){
+		seleccionada = false;
+	}
+	
 	/**
 	 * Metodo dar del atributo seleccionda
 	 * @return el atributo
